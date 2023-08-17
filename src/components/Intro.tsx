@@ -23,6 +23,7 @@ const Intro: FC = () => {
             autoComplete="given-name"
             className="border-2 border-muted p-2 rounded-md w-full outline-none focus:border-accent"
           />
+          <input type="hidden" name="_action" value="newUser" />
           <button
             type="submit"
             className="bg-gray-950 text-gray-200 p-2 rounded-lg cursor-pointer focus:outline-none focus-visible:ring-4 ring-offset-2 focus:ring focus:ring-gray-950 hover:ring hover:ring-gray-950 transition-shadow"
