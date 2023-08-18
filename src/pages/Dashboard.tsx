@@ -1,16 +1,28 @@
 import { FC } from "react";
 import { useLoaderData } from "react-router-dom";
 import type { ActionFunction } from "react-router";
-import { fetchData, createBudget } from "../helper.ts";
+import {
+  fetchData,
+  createBudget,
+  UserData,
+  BudgetData,
+  createExpense,
+} from "../helper.ts";
 
 //components
 import Intro from "../components/Intro.tsx";
 import { toast } from "react-toastify";
 import AddBudgetForm from "../components/AddBudgetForm.tsx";
+import AddExpenseForm from "../components/AddExpenseForm.tsx";
 
-export const dashboardLoader = () => {
-  const userName = fetchData("userName");
-  const budgets = fetchData("budgets");
+interface DashBoardLoaderData {
+  userName: string;
+  budgets: BudgetData;
+}
+
+export const dashboardLoader = (): DashBoardLoaderData => {
+  const userName = fetchData("userName") as UserData;
+  const budgets = fetchData("budgets") as BudgetData;
   return { userName, budgets };
 };
 
@@ -34,14 +46,28 @@ export const dashboardAction: ActionFunction = async ({ request }) => {
       });
       toast.success("Budget created!");
     } catch (error) {
-      throw new Error("There was a problem creating your budget.");
+      if (error instanceof Error) throw new Error(error.message);
+      else throw new Error("Unexpected error");
     }
-  } else {
+  } else if (_action === "newExpense") {
+    try {
+      createExpense({
+        name: values.newExpense.toString(),
+        amount: values.newExpenseAmount.toString(),
+        budgetId: values.newExpenseBudget.toString(),
+      });
+      toast.success(`Expense ${values.newExpense} created!`);
+    } catch (error) {
+      if (error instanceof Error) throw new Error(error.message);
+      else throw new Error("There was a problem creating your expense.");
+    }
   }
+
+  return null;
 };
 
 const Dashboard: FC = () => {
-  const { userName } = useLoaderData() as { userName: string };
+  const { userName, budgets } = useLoaderData() as DashBoardLoaderData;
 
   return (
     <div>
@@ -51,11 +77,16 @@ const Dashboard: FC = () => {
             Welcome back, <span className="text-accent">{userName}</span>
           </h1>
           <div className="grid">
-            <div className="w-full">
-              <div className="w-full">
+            {budgets && budgets.length > 0 ? (
+              <div className="grid gap-6 w-full">
+                <AddBudgetForm />
+                <AddExpenseForm budgets={budgets} />
+              </div>
+            ) : (
+              <div className="grid w-full">
                 <AddBudgetForm />
               </div>
-            </div>
+            )}
           </div>
         </div>
       ) : (
