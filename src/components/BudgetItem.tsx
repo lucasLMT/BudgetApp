@@ -14,8 +14,6 @@ const BudgetItem: FC<BudgetItemData> = ({ budget }) => {
   const { id, name, amount, color } = budget;
   const spent = calculateSpentByBudget(id);
 
-  console.log(spent / amount, amount);
-
   return (
     // <div className="budget" style={{"--accent": color}}>
     <div className="budget grid gap-4 border-4 border-red-600 rounded-2xl p-4 text-red-500 flex-grow flex-shrink basis-[32%] max-w-xl shadow-xl">

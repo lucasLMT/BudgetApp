@@ -26,7 +26,6 @@ interface budget {
 
 export const createBudget = ({ name, amount }: budget): void => {
   const existingBudgets = fetchData("budgets") || [];
-  console.log(existingBudgets);
 
   const newItem = {
     id: crypto.randomUUID(),
@@ -35,7 +34,6 @@ export const createBudget = ({ name, amount }: budget): void => {
     amount: +amount,
     color: generateRandomColor(existingBudgets.length + 1),
   };
-  console.log(newItem);
 
   return localStorage.setItem(
     "budgets",
@@ -67,7 +65,6 @@ export const createExpense = ({ name, amount, budgetId }: Expense): void => {
     amount: +amount,
     budgetId: budgetId,
   };
-  console.log(newItem);
 
   return localStorage.setItem(
     "expenses",
@@ -75,8 +72,25 @@ export const createExpense = ({ name, amount, budgetId }: Expense): void => {
   );
 };
 
-export const deleteItem = ({ key }: { key: string }) => {
+export const deleteItem = ({ key, id }: { key: string; id?: string }) => {
+  if (id) {
+    const existingData = fetchData(key);
+    const newData = existingData.filter((item) => item.id !== id);
+    return localStorage.setItem(key, JSON.stringify(newData));
+  }
+
   localStorage.removeItem(key);
+};
+
+type Category = {
+  category: string;
+  key: string;
+  value: string;
+};
+
+export const getAllMatchingItems = ({ category, key, value }: Category) => {
+  const data = fetchData(category) || [];
+  return data;
 };
 
 export const calculateSpentByBudget = (budgetId: string) => {
@@ -102,4 +116,8 @@ export const formatPercentage = (amt: number) => {
     style: "percent",
     minimumFractionDigits: 0,
   });
+};
+
+export const formatDateToLocaleString = (epoch: number): string => {
+  return new Date(epoch).toLocaleDateString();
 };

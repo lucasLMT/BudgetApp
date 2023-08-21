@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { useLoaderData } from "react-router-dom";
+import { Link, useLoaderData } from "react-router-dom";
 import type { ActionFunction } from "react-router";
 import {
   fetchData,
@@ -8,6 +8,7 @@ import {
   BudgetData,
   createExpense,
   ExpenseData,
+  deleteItem,
 } from "../helper.ts";
 
 //components
@@ -66,6 +67,17 @@ export const dashboardAction: ActionFunction = async ({ request }) => {
       if (error instanceof Error) throw new Error(error.message);
       else throw new Error("There was a problem creating your expense.");
     }
+  } else if (_action === "deleteExpense") {
+    try {
+      deleteItem({
+        key: "expenses",
+        id: values.expenseId.toString(),
+      });
+      toast.success(`Expense deleted!`);
+    } catch (error) {
+      if (error instanceof Error) throw new Error(error.message);
+      else throw new Error("There was a problem deleting your expense.");
+    }
   }
 
   return null;
@@ -95,14 +107,23 @@ const Dashboard: FC = () => {
                     <BudgetItem key={budget.id} budget={budget}></BudgetItem>
                   ))}
                 </div>
-                {expenses && expenses.length > 0 && (
+                {expenses && expenses.length && (
                   <div className="grid">
-                    <h2>Recent Expenses</h2>
+                    <h2 className="font-bold text-2xl mb-4">Recent Expenses</h2>
                     <Table
-                      expenses={expenses.sort(
-                        (a, b) => b.createdAt - a.createdAt
-                      )}
+                      expenses={
+                        expenses.sort((a, b) => b.createdAt - a.createdAt)
+                        // .slice(0, 8)}
+                      }
                     />
+                    {expenses.length && (
+                      <Link
+                        to="expenses"
+                        className="bg-gray-950 text-gray-200 p-2 rounded-lg cursor-pointer focus:outline-none focus-visible:ring-4 ring-offset-2 focus:ring focus:ring-gray-950 hover:ring hover:ring-gray-950 transition-shadow w-fit"
+                      >
+                        View all expenses
+                      </Link>
+                    )}
                   </div>
                 )}
               </div>
