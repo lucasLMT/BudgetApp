@@ -16,15 +16,11 @@ const AddBudgetForm: FC = () => {
   }, [isSubmitting]);
 
   return (
-    <div className="flex flex-wrap gap-8">
+    <div className="flex flex-wrap gap-8 lg:w-1/2">
       <div className="grid gap-4 w-full">
-        <h2 className="h3 text-xl">
-          Personal budgeting is the secret to financial freedom.
-        </h2>
-        <h2 className="h3 text-xl">Create a budget to get started!</h2>
         <div className="form-wrapper rounded-xl max-w-3xl shadow-xl border-4 border-white p-2 grid gap-4">
           <div className="border border-muted border-dashed p-4 rounded-xl">
-            <h2 className="h3 font-bold text-3xl mb-4">Create a budget</h2>
+            <h2 className="h3 font-bold text-2xl mb-4">Create a budget</h2>
             <fetcher.Form method="post" className="grid gap-4" ref={formRef}>
               <div className="grid gap-1">
                 <label htmlFor="newBudget" className="font-bold text-lg">

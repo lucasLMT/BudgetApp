@@ -7,9 +7,11 @@ export type BudgetData = {
   createdAt: number;
   amount: number;
   color: string;
-}[];
+};
 
-export const fetchData = (key: string): UserData | BudgetData => {
+export const fetchData = (
+  key: string
+): UserData | BudgetData[] | ExpenseData[] => {
   return JSON.parse(localStorage.getItem(key) || "false");
 };
 
@@ -41,13 +43,21 @@ export const createBudget = ({ name, amount }: budget): void => {
   );
 };
 
-interface expense {
+interface Expense {
   name: string;
   amount: string;
   budgetId: string;
 }
 
-export const createExpense = ({ name, amount, budgetId }: expense): void => {
+export type ExpenseData = {
+  id: string;
+  name: string;
+  createdAt: number;
+  amount: number;
+  budgetId: string;
+};
+
+export const createExpense = ({ name, amount, budgetId }: Expense): void => {
   const existingExpenses = fetchData("expenses") || [];
 
   const newItem = {
@@ -67,4 +77,29 @@ export const createExpense = ({ name, amount, budgetId }: expense): void => {
 
 export const deleteItem = ({ key }: { key: string }) => {
   localStorage.removeItem(key);
+};
+
+export const calculateSpentByBudget = (budgetId: string) => {
+  const expenses = (fetchData("expenses") as ExpenseData[]) || [];
+
+  const budgetSpent = expenses.reduce((acc, expense) => {
+    if (expense.budgetId !== budgetId) return acc;
+    return (acc += expense.amount);
+  }, 0);
+
+  return budgetSpent;
+};
+
+export const formatCurrency = (amt: number) => {
+  return amt.toLocaleString(undefined, {
+    style: "currency",
+    currency: "USD",
+  });
+};
+
+export const formatPercentage = (amt: number) => {
+  return amt.toLocaleString(undefined, {
+    style: "percent",
+    minimumFractionDigits: 0,
+  });
 };

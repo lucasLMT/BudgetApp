@@ -11,6 +11,9 @@ export default {
         light: "#	BAD9D9",
         warning: "#A13E37",
       },
+      screens: {
+        "max-sm": { max: "639px" },
+      },
     },
   },
   plugins: [],

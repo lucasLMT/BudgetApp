@@ -7,6 +7,7 @@ import {
   UserData,
   BudgetData,
   createExpense,
+  ExpenseData,
 } from "../helper.ts";
 
 //components
@@ -14,16 +15,20 @@ import Intro from "../components/Intro.tsx";
 import { toast } from "react-toastify";
 import AddBudgetForm from "../components/AddBudgetForm.tsx";
 import AddExpenseForm from "../components/AddExpenseForm.tsx";
+import BudgetItem from "../components/BudgetItem.tsx";
+import Table from "../components/Table.tsx";
 
 interface DashBoardLoaderData {
   userName: string;
-  budgets: BudgetData;
+  budgets: BudgetData[];
+  expenses: ExpenseData[];
 }
 
 export const dashboardLoader = (): DashBoardLoaderData => {
   const userName = fetchData("userName") as UserData;
-  const budgets = fetchData("budgets") as BudgetData;
-  return { userName, budgets };
+  const budgets = fetchData("budgets") as BudgetData[];
+  const expenses = fetchData("expenses") as ExpenseData[];
+  return { userName, budgets, expenses };
 };
 
 export const dashboardAction: ActionFunction = async ({ request }) => {
@@ -67,7 +72,8 @@ export const dashboardAction: ActionFunction = async ({ request }) => {
 };
 
 const Dashboard: FC = () => {
-  const { userName, budgets } = useLoaderData() as DashBoardLoaderData;
+  const { userName, budgets, expenses } =
+    useLoaderData() as DashBoardLoaderData;
 
   return (
     <div>
@@ -79,13 +85,37 @@ const Dashboard: FC = () => {
           <div className="grid">
             {budgets && budgets.length > 0 ? (
               <div className="grid gap-6 w-full">
-                <AddBudgetForm />
-                <AddExpenseForm budgets={budgets} />
+                <div className="lg:flex lg:gap-6">
+                  <AddBudgetForm />
+                  <AddExpenseForm budgets={budgets} />
+                </div>
+                <h2 className="h3 font-bold text-2xl mb-4">Existing Budgets</h2>
+                <div className="budgets flex flex-wrap gap-6 max-w-7xl w-full">
+                  {budgets.map((budget) => (
+                    <BudgetItem key={budget.id} budget={budget}></BudgetItem>
+                  ))}
+                </div>
+                {expenses && expenses.length > 0 && (
+                  <div className="grid">
+                    <h2>Recent Expenses</h2>
+                    <Table
+                      expenses={expenses.sort(
+                        (a, b) => b.createdAt - a.createdAt
+                      )}
+                    />
+                  </div>
+                )}
               </div>
             ) : (
-              <div className="grid w-full">
-                <AddBudgetForm />
-              </div>
+              <>
+                <h2 className="h3 text-xl">
+                  Personal budgeting is the secret to financial freedom.
+                </h2>
+                <h2 className="h3 text-xl">Create a budget to get started!</h2>
+                <div className="grid w-full">
+                  <AddBudgetForm />
+                </div>
+              </>
             )}
           </div>
         </div>
