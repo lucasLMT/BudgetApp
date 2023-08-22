@@ -16,7 +16,7 @@ const AddBudgetForm: FC = () => {
   }, [isSubmitting]);
 
   return (
-    <div className="flex flex-wrap gap-8 lg:w-1/2">
+    <div className="flex flex-wrap gap-8 lg:w-1/2 mb-6 lg:mb-0">
       <div className="grid gap-4 w-full">
         <div className="form-wrapper rounded-xl max-w-3xl shadow-xl border-4 border-white p-2 grid gap-4">
           <div className="border border-muted border-dashed p-4 rounded-xl">

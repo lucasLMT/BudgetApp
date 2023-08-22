@@ -1,5 +1,6 @@
 import { FC } from "react";
 import {
+  BudgetData,
   ExpenseData,
   formatCurrency,
   formatDateToLocaleString,
@@ -9,32 +10,35 @@ import { Link, useFetcher } from "react-router-dom";
 
 interface ExpenseItemData {
   expense: ExpenseData;
+  showBudget?: boolean;
 }
 
-const ExpenseItem: FC<ExpenseItemData> = ({ expense }) => {
+const ExpenseItem: FC<ExpenseItemData> = ({ expense, showBudget = true }) => {
   const fetcher = useFetcher();
 
   const budget = getAllMatchingItems({
     category: "budgets",
     key: "id",
     value: expense.budgetId,
-  })[0];
+  })[0] as BudgetData;
 
   return (
     <>
       <td>{expense.name}</td>
       <td>{formatCurrency(expense.amount)}</td>
       <td>{formatDateToLocaleString(expense.createdAt)}</td>
+      {showBudget && (
+        <td>
+          <Link
+            to={`/budget/${budget.id}`}
+            className="bg-red-500 text-gray-200 p-2 rounded-full cursor-pointer focus:outline-none focus-visible:ring-4 ring-offset-2 focus:ring focus:ring-red-500 hover:ring hover:ring-red-500 transition-shadow w-fit"
+          >
+            {budget.name}
+          </Link>
+        </td>
+      )}
       <td>
-        <Link
-          to={`/budget/${budget.id}`}
-          className="bg-red-500 text-gray-200 p-2 rounded-full cursor-pointer focus:outline-none focus-visible:ring-4 ring-offset-2 focus:ring focus:ring-red-500 hover:ring hover:ring-red-500 transition-shadow w-fit"
-        >
-          {budget.name}
-        </Link>
-      </td>
-      <td>
-        <fetcher.Form>
+        <fetcher.Form method="post">
           <input type="hidden" name="_action" value="deleteExpense" />
           <input type="hidden" name="expenseId" value={expense.id} />
           <button

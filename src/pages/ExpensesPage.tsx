@@ -31,13 +31,14 @@ export const expensesAction: ActionFunction = async ({ request }) => {
       else throw new Error("There was a problem deleting your expense.");
     }
   }
+  return null;
 };
 
 const ExpensesPage: FC = () => {
   const { expenses } = useLoaderData() as ExpensesLoaderData;
   return (
     <div>
-      <h1 className="font-bold text-6xl">All Expenses</h1>
+      <h1 className="font-bold text-6xl mb-6">All Expenses</h1>
       {expenses && expenses.length > 0 ? (
         <div>
           <h2 className="font-bold text-2xl mt-4">
@@ -47,7 +48,7 @@ const ExpensesPage: FC = () => {
           <Table expenses={expenses} />
         </div>
       ) : (
-        <p>No expenses to show</p>
+        <p className="font-normal">No expenses to show</p>
       )}
     </div>
   );

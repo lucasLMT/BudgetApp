@@ -16,7 +16,7 @@ const BudgetItem: FC<BudgetItemData> = ({ budget }) => {
 
   return (
     // <div className="budget" style={{"--accent": color}}>
-    <div className="budget grid gap-4 border-4 border-red-600 rounded-2xl p-4 text-red-500 flex-grow flex-shrink basis-[32%] max-w-xl shadow-xl">
+    <div className="budget grid gap-4 border-4 border-red-600 rounded-2xl p-4 text-red-500 flex-grow flex-shrink basis-[32%] max-w-xl shadow-xl mb-6 lg:mb-0">
       <div className="progress-text flex gap-4 justify-between text-lg items-center">
         <h3 className="h3 font-bold">{name}</h3>
         <p className="text-right">{formatCurrency(amount)} Budgeted</p>

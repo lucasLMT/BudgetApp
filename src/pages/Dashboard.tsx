@@ -107,7 +107,7 @@ const Dashboard: FC = () => {
                     <BudgetItem key={budget.id} budget={budget}></BudgetItem>
                   ))}
                 </div>
-                {expenses && expenses.length && (
+                {expenses && expenses.length > 0 && (
                   <div className="grid">
                     <h2 className="font-bold text-2xl mb-4">Recent Expenses</h2>
                     <Table

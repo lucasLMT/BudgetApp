@@ -90,6 +90,7 @@ type Category = {
 
 export const getAllMatchingItems = ({ category, key, value }: Category) => {
   const data = fetchData(category) || [];
+  const matchingItems = data.filter((item) => item[key] === value);
   return data;
 };
 

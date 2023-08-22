@@ -21,7 +21,7 @@ const Main: FC = () => {
   return (
     <div
       id="layout"
-      className="grid grid-rows-[auto,1fr,auto] h-screen items-center justify-center content-center bg-bkg"
+      className="grid grid-rows-[auto,1fr,auto] h-screen items-center justify-center bg-bkg"
     >
       <Nav username={userName} />
       <main className="max-w-7xl w-full grid items-start p-4 mx-auto">
