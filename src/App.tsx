@@ -18,46 +18,49 @@ import ExpensesPage, {
 import BudgetPage, { budgetAction, budgetLoader } from "./pages/BudgetPage";
 import { deleteBudget } from "./actions/deleteBudget";
 
-const router = createBrowserRouter([
-  {
-    path: "/",
-    element: <Main />,
-    loader: mainLoader,
-    errorElement: <ErrorScreen />,
-    children: [
-      {
-        path: "/",
-        index: true,
-        element: <Dashboard />,
-        loader: dashboardLoader,
-        action: dashboardAction,
-        errorElement: <ErrorScreen />,
-      },
-      {
-        path: "expenses",
-        element: <ExpensesPage />,
-        loader: expensesLoader,
-        action: expensesAction,
-      },
-      {
-        path: "budget/:id",
-        element: <BudgetPage />,
-        loader: budgetLoader,
-        action: budgetAction,
-        children: [{ path: "delete", action: deleteBudget }],
-      },
-      {
-        path: "logout",
-        action: logoutAction,
-      },
-    ],
-  },
+const router = createBrowserRouter(
+  [
+    {
+      path: "/",
+      element: <Main />,
+      loader: mainLoader,
+      errorElement: <ErrorScreen />,
+      children: [
+        {
+          path: "/",
+          index: true,
+          element: <Dashboard />,
+          loader: dashboardLoader,
+          action: dashboardAction,
+          errorElement: <ErrorScreen />,
+        },
+        {
+          path: "expenses",
+          element: <ExpensesPage />,
+          loader: expensesLoader,
+          action: expensesAction,
+        },
+        {
+          path: "budget/:id",
+          element: <BudgetPage />,
+          loader: budgetLoader,
+          action: budgetAction,
+          children: [{ path: "delete", action: deleteBudget }],
+        },
+        {
+          path: "logout",
+          action: logoutAction,
+        },
+      ],
+    },
 
-  {
-    path: "*",
-    element: <ErrorScreen />,
-  },
-]);
+    {
+      path: "*",
+      element: <ErrorScreen />,
+    },
+  ],
+  { basename: import.meta.env.DEV ? "/" : "/BudgetApp" },
+);
 
 const App: FC = () => {
   return (
