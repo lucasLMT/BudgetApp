@@ -21,7 +21,7 @@ Make sure you have [Node.js](https://nodejs.org/) installed on your machine.
 2. Navigate to the project directory:
 
    ```bash
-   cd budget-app
+   cd BudgetApp
    ```
 
 3. Install the project dependencies:
