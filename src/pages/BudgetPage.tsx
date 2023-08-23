@@ -90,17 +90,17 @@ const BudgetPage: FC = () => {
   }
 
   return (
-    <div className="grid gap-4 w-full">
-      <h1>
-        <span>{budget.name}</span>
+    <div className="grid w-full gap-4">
+      <h1 className="mb-4 text-6xl font-bold">
+        <span className="text-accent">{budget.name}</span> Overview
       </h1>
-      <div className="lg:flex gap-4">
+      <div className="gap-4 lg:flex">
         <BudgetItem budget={budget} showDelete={true} />
         <AddExpenseForm budgets={[budget]} />
       </div>
       {expenses && expenses.length > 0 && (
         <div className="grid gap-4">
-          <h2 className="font-bold text-lg">
+          <h2 className="text-lg font-bold">
             <span className="text-accent">{budget.name}</span> Expenses
           </h2>
           <Table expenses={expenses} showBudget={false} />

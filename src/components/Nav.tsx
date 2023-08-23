@@ -10,14 +10,14 @@ interface NavData {
 
 const Nav: FC<NavData> = ({ username }) => {
   return (
-    <nav className="flex items-center justify-between max-w-7xl w-full p-4 mx-auto">
+    <nav className="mx-auto flex w-full max-w-7xl items-center justify-between p-4">
       <NavLink
         to="/"
         aria-label="Go to home"
-        className="flex space-x-2 items-center m-4"
+        className="m-4 flex items-center space-x-2"
       >
         <img src={logomark} alt="" className="h-8" />
-        <span className="font-bold text-4xl">HomeBudget</span>
+        <span className="text-4xl font-bold max-sm:hidden">HomeBudget</span>
       </NavLink>
       {username && (
         <Form
@@ -31,7 +31,7 @@ const Nav: FC<NavData> = ({ username }) => {
         >
           <button
             type="submit"
-            className="bg-orange-200 border rounded-md border-orange-400 text-orange-400 m-4 p-2 text-sm hover:text-orange-100 hover:bg-orange-400"
+            className="m-4 rounded-md border border-orange-400 bg-orange-200 p-2 text-sm text-orange-400 hover:bg-orange-400 hover:text-orange-100"
           >
             <span className="tracking-wide">Delete User</span>
             <svg
@@ -40,7 +40,7 @@ const Nav: FC<NavData> = ({ username }) => {
               viewBox="0 0 24 24"
               strokeWidth="1.5"
               stroke="currentColor"
-              className="w-6 h-6 inline-block ml-1"
+              className="ml-1 inline-block h-6 w-6"
             >
               <path
                 strokeLinecap="round"
