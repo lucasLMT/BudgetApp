@@ -1,6 +1,6 @@
 # Budget App
 
-Welcome to the Budget App project! This is a simple budget management application built using the latest version of React, React Router DOM (everything with typescript), and the Vite development server.
+Welcome to the Budget App project! This is a simple budget management application built using the latest version of React, React Router DOM (everything with typescript), Tailwindcss, and the Vite development server.
 
 ## Getting Started
 
