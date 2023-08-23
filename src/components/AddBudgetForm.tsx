@@ -1,5 +1,5 @@
 import { FC, useEffect, useRef } from "react";
-import { Form, useFetcher } from "react-router-dom";
+import { useFetcher } from "react-router-dom";
 
 const AddBudgetForm: FC = () => {
   const fetcher = useFetcher();
@@ -16,14 +16,14 @@ const AddBudgetForm: FC = () => {
   }, [isSubmitting]);
 
   return (
-    <div className="flex flex-wrap gap-8 lg:w-1/2 mb-6 lg:mb-0">
-      <div className="grid gap-4 w-full">
-        <div className="form-wrapper rounded-xl max-w-3xl shadow-xl border-4 border-white p-2 grid gap-4">
-          <div className="border border-muted border-dashed p-4 rounded-xl">
-            <h2 className="h3 font-bold text-2xl mb-4">Create a budget</h2>
+    <div className="mb-6 flex flex-wrap gap-8 lg:mb-0 lg:w-1/2">
+      <div className="grid w-full gap-4">
+        <div className="form-wrapper grid max-w-3xl gap-4 rounded-xl border-4 border-white p-2 shadow-xl">
+          <div className="rounded-xl border border-dashed border-muted p-4">
+            <h2 className="h3 mb-4 text-2xl font-bold">Create a budget</h2>
             <fetcher.Form method="post" className="grid gap-4" ref={formRef}>
               <div className="grid gap-1">
-                <label htmlFor="newBudget" className="font-bold text-lg">
+                <label htmlFor="newBudget" className="text-lg font-bold">
                   Budget name
                 </label>
                 <input
@@ -32,12 +32,12 @@ const AddBudgetForm: FC = () => {
                   id="newBudget"
                   placeholder="e.g., Groceries"
                   required
-                  className="bg-bkg border border-muted outline-none focus:border-2 focus:border-accent rounded-md p-2"
+                  className="rounded-md border border-muted bg-bkg p-2 outline-none focus:border-2 focus:border-accent"
                   ref={budgetNameField}
                 />
               </div>
               <div className="grid gap-1">
-                <label htmlFor="newBudgetAmount" className="font-bold text-lg">
+                <label htmlFor="newBudgetAmount" className="text-lg font-bold">
                   Amount
                 </label>
                 <input
@@ -48,12 +48,13 @@ const AddBudgetForm: FC = () => {
                   placeholder="e.g., $350"
                   required
                   inputMode="decimal"
-                  className="bg-bkg border border-muted outline-none focus:border-2 focus:border-accent rounded-md p-2"
+                  className="rounded-md border border-muted bg-bkg p-2 outline-none focus:border-2 focus:border-accent"
                 />
               </div>
               <input type="hidden" name="_action" value="newBudget" />
               <button
-                className="bg-gray-950 text-gray-200 p-2 rounded-lg cursor-pointer focus:outline-none focus-visible:ring-4 ring-offset-2 focus:ring focus:ring-gray-950 hover:ring hover:ring-gray-950 transition-shadow w-fit"
+                type="submit"
+                className="w-fit cursor-pointer rounded-lg bg-gray-950 p-2 text-gray-200 ring-offset-2 transition-shadow hover:ring hover:ring-gray-950 focus:outline-none focus:ring focus:ring-gray-950 focus-visible:ring-4"
                 disabled={isSubmitting}
               >
                 {isSubmitting ? (
@@ -67,7 +68,7 @@ const AddBudgetForm: FC = () => {
                       viewBox="0 0 24 24"
                       strokeWidth="1.5"
                       stroke="currentColor"
-                      className="w-6 h-6 inline-block"
+                      className="inline-block h-6 w-6"
                     >
                       <path
                         strokeLinecap="round"

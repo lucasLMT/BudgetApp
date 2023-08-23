@@ -95,7 +95,7 @@ const BudgetPage: FC = () => {
         <span>{budget.name}</span>
       </h1>
       <div className="lg:flex gap-4">
-        <BudgetItem budget={budget} />
+        <BudgetItem budget={budget} showDelete={true} />
         <AddExpenseForm budgets={[budget]} />
       </div>
       {expenses && expenses.length > 0 && (

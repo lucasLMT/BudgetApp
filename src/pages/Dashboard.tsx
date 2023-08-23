@@ -91,25 +91,25 @@ const Dashboard: FC = () => {
     <div>
       {userName ? (
         <div className="dashboard">
-          <h1 className="font-bold text-6xl my-6">
+          <h1 className="my-6 text-6xl font-bold">
             Welcome back, <span className="text-accent">{userName}</span>
           </h1>
           <div className="grid">
             {budgets && budgets.length > 0 ? (
-              <div className="grid gap-6 w-full">
+              <div className="grid w-full gap-6">
                 <div className="lg:flex lg:gap-6">
                   <AddBudgetForm />
                   <AddExpenseForm budgets={budgets} />
                 </div>
-                <h2 className="h3 font-bold text-2xl mb-4">Existing Budgets</h2>
-                <div className="budgets flex flex-wrap gap-6 max-w-7xl w-full">
+                <h2 className="h3 mb-4 text-2xl font-bold">Existing Budgets</h2>
+                <div className="budgets flex w-full max-w-7xl flex-wrap gap-6">
                   {budgets.map((budget) => (
                     <BudgetItem key={budget.id} budget={budget}></BudgetItem>
                   ))}
                 </div>
                 {expenses && expenses.length > 0 && (
                   <div className="grid">
-                    <h2 className="font-bold text-2xl mb-4">Recent Expenses</h2>
+                    <h2 className="mb-4 text-2xl font-bold">Recent Expenses</h2>
                     <Table
                       expenses={
                         expenses.sort((a, b) => b.createdAt - a.createdAt)
@@ -119,7 +119,7 @@ const Dashboard: FC = () => {
                     {expenses.length && (
                       <Link
                         to="expenses"
-                        className="bg-gray-950 text-gray-200 p-2 rounded-lg cursor-pointer focus:outline-none focus-visible:ring-4 ring-offset-2 focus:ring focus:ring-gray-950 hover:ring hover:ring-gray-950 transition-shadow w-fit"
+                        className="w-fit cursor-pointer rounded-lg bg-gray-950 p-2 text-gray-200 ring-offset-2 transition-shadow hover:ring hover:ring-gray-950 focus:outline-none focus:ring focus:ring-gray-950 focus-visible:ring-4"
                       >
                         View all expenses
                       </Link>

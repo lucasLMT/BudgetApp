@@ -1,16 +1,24 @@
 //Local Storage
+import { ExpenseData } from "./helper";
 export type UserData = string;
 
-export type BudgetData = {
+interface BaseData {
   id: string;
   name: string;
   createdAt: number;
   amount: number;
+}
+
+export interface BudgetData extends BaseData {
   color: string;
-};
+}
+
+export interface ExpenseData extends BaseData {
+  budgetId: string;
+}
 
 export const fetchData = (
-  key: string
+  key: string,
 ): UserData | BudgetData[] | ExpenseData[] => {
   return JSON.parse(localStorage.getItem(key) || "false");
 };
@@ -37,7 +45,7 @@ export const createBudget = ({ name, amount }: budget): void => {
 
   return localStorage.setItem(
     "budgets",
-    JSON.stringify([...existingBudgets, newItem])
+    JSON.stringify([...existingBudgets, newItem]),
   );
 };
 
@@ -46,14 +54,6 @@ interface Expense {
   amount: string;
   budgetId: string;
 }
-
-export type ExpenseData = {
-  id: string;
-  name: string;
-  createdAt: number;
-  amount: number;
-  budgetId: string;
-};
 
 export const createExpense = ({ name, amount, budgetId }: Expense): void => {
   const existingExpenses = fetchData("expenses") || [];
@@ -68,13 +68,13 @@ export const createExpense = ({ name, amount, budgetId }: Expense): void => {
 
   return localStorage.setItem(
     "expenses",
-    JSON.stringify([...existingExpenses, newItem])
+    JSON.stringify([...existingExpenses, newItem]),
   );
 };
 
 export const deleteItem = ({ key, id }: { key: string; id?: string }) => {
   if (id) {
-    const existingData = fetchData(key);
+    const existingData = fetchData(key) as BaseData[];
     const newData = existingData.filter((item) => item.id !== id);
     return localStorage.setItem(key, JSON.stringify(newData));
   }
@@ -84,13 +84,18 @@ export const deleteItem = ({ key, id }: { key: string; id?: string }) => {
 
 type Category = {
   category: string;
-  key: string;
+  key: keyof BudgetData | keyof ExpenseData;
   value: string;
 };
 
 export const getAllMatchingItems = ({ category, key, value }: Category) => {
   const data = fetchData(category) || [];
-  const matchingItems = data.filter((item) => item[key] === value);
+
+  if (Array.isArray(data)) {
+    const matchingItems = data.filter((item) => item[key] === value);
+    return matchingItems;
+  }
+
   return data;
 };
 
