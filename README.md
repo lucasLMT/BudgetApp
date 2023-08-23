@@ -1,27 +1,61 @@
-# React + TypeScript + Vite
+# Budget App
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Welcome to the Budget App project! This is a simple budget management application built using the latest version of React, React Router DOM (everything with typescript), and the Vite development server.
 
-Currently, two official plugins are available:
+## Getting Started
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Follow these steps to get the application up and running on your local machine.
 
-## Expanding the ESLint configuration
+### Prerequisites
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+Make sure you have [Node.js](https://nodejs.org/) installed on your machine.
 
-- Configure the top-level `parserOptions` property like this:
+### Installation
 
-```js
-   parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-   },
-```
+1. Clone the repository to your local machine:
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+   ```bash
+   git clone https://github.com/lucasLMT/BudgetApp.git
+   ```
+
+2. Navigate to the project directory:
+
+   ```bash
+   cd budget-app
+   ```
+
+3. Install the project dependencies:
+
+   ```bash
+   npm install
+   ```
+
+### Running the Application
+
+#### Using Vite Development Server
+
+1. To start the development server with Vite, run:
+
+   ```bash
+   npm run dev
+   ```
+
+   This will launch the application in development mode and open it in your default web browser. Any changes you make to the code will be automatically reflected in the browser.
+
+2. Open your web browser and navigate to `http://localhost:5173` to see the application in action.
+
+## Project Structure
+
+Here's a brief overview of the project structure:
+
+- `src`: Contains the main source code files of the application.
+- `public`: Houses the public assets like HTML files, images, and icons.
+
+Feel free to explore and modify the code to fit your needs.
+
+## Features
+
+- Track your expenses and manage your budget effortlessly.
+- Utilize React components and hooks to build a responsive and user-friendly UI.
+- Navigate between different views using React Router DOM.
+- Leverage the power of Vite development server for fast and efficient development.
