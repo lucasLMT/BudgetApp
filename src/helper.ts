@@ -1,5 +1,4 @@
 //Local Storage
-import { ExpenseData } from "./helper";
 export type UserData = string;
 
 interface BaseData {
@@ -84,7 +83,7 @@ export const deleteItem = ({ key, id }: { key: string; id?: string }) => {
 
 type Category = {
   category: string;
-  key: keyof BudgetData | keyof ExpenseData;
+  key: string;
   value: string;
 };
 
@@ -92,6 +91,7 @@ export const getAllMatchingItems = ({ category, key, value }: Category) => {
   const data = fetchData(category) || [];
 
   if (Array.isArray(data)) {
+    // @ts-ignore
     const matchingItems = data.filter((item) => item[key] === value);
     return matchingItems;
   }

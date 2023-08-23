@@ -13,7 +13,7 @@ interface BudgetItemData {
 }
 
 const BudgetItem: FC<BudgetItemData> = ({ budget, showDelete }) => {
-  const { id, name, amount, color } = budget;
+  const { id, name, amount } = budget;
   const spent = calculateSpentByBudget(id);
 
   return (
